@@ -18,15 +18,15 @@ $address_to = $_POST["email"];
 $from_name = $_POST["form-name"];
 
 $emailCliente = new PHPMailer(true);
-$emailCliente -> CharSet = 'UTF-8';
+$emailCliente->CharSet = 'UTF-8';
 $emailPeki = new PHPMailer(true);
-$emailPeki -> CharSet = 'UTF-8';
+$emailPeki->CharSet = 'UTF-8';
 
 // ---------- datos de la cuenta de Gmail -------------------------------
 $emailCliente->Username = $email_user;
-$emailCliente->Password = $email_password; 
+$emailCliente->Password = $email_password;
 $emailPeki->Username = $email_user;
-$emailPeki->Password = $email_password; 
+$emailPeki->Password = $email_password;
 //-----------------------------------------------------------------------
 // $emailCliente->SMTPDebug = 1;
 $emailCliente->SMTPSecure = 'ssl';
@@ -44,14 +44,14 @@ $emailPeki->IsSMTP(); // use SMTP
 $emailPeki->SMTPAuth = true;
 
 //correo para nosotros desde el cliente
-$emailPeki->setFrom($address_to,$from_name);
+$emailPeki->setFrom($address_to, $from_name);
 $emailPeki->AddAddress($emailCliente->Username); // recipients email
-$emailPeki->Subject = $the_subject;	
+$emailPeki->Subject = $the_subject;
 
-$mensaje="Mensaje del formulario de contacto de pekipet ";
-$mensaje.= "<br>Nombre: ". $_POST['form-name'];
-$mensaje.= "<br>Email: ".$_POST['email'];
-$mensaje.= "<br>Mensaje: \n".$_POST['form-text'];
+$mensaje = "Mensaje del formulario de contacto de pekipet ";
+$mensaje .= "<br>Nombre: " . $_POST['form-name'];
+$mensaje .= "<br>Email: " . $_POST['email'];
+$mensaje .= "<br>Mensaje: \n" . $_POST['form-text'];
 
 $emailPeki->Body = $mensaje;
 
@@ -59,7 +59,7 @@ $emailPeki->IsHTML(true);
 $emailPeki->Send();
 
 //correo de confirmacion para el cliente
-$emailCliente->setFrom($emailCliente->Username,"PekiPet");
+$emailCliente->setFrom($emailCliente->Username, "PekiPet");
 $emailCliente->AddAddress($address_to); // recipients email
 $emailCliente->Subject = "Hemos recibido tus comentarios";
 
@@ -69,15 +69,16 @@ $emailCliente->IsHTML(true);
 $emailCliente->Send();
 
 header('Refresh: 3; URL=index.php#contacto');
-?><script>$.confirm({
+?><script>
+  $.confirm({
     boxWidth: '30%',
     useBootstrap: false,
     theme: 'dark',
     icon: 'fa fa-paw',
     title: 'Email enviado',
     content: 'Ha sido enviado su comentario a nuestro correo, le contestaremos en la mayor brevedad posible.'
-});
+  });
 </script><?php
 
 
-?>
+          ?>
